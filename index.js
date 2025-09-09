@@ -1,4 +1,5 @@
- const API_KEY = "f2118be75c6f9ef1666ebc726fca3970"; // ← replace with your OpenWeatherMap API key
+
+     const API_KEY = "f2118be75c6f9ef1666ebc726fca3970"; // ← replace with your OpenWeatherMap API key
 const loader = document.getElementById("loader");
 const cityInput = document.getElementById('cityInput');
 const searchBtn = document.getElementById('searchBtn');
@@ -75,15 +76,15 @@ function hideLoader() {
 
 // THEME
 function loadTheme(){ 
-  const t = localStorage.getItem(THEME_KEY) || 'light'; 
-  if(t==='dark') document.body.classList.add('dark'); 
-  else document.body.classList.remove('dark'); 
-}
+ const themeBtn = document.getElementById('themeBtn');
 
-themeBtn.addEventListener('click', () => { 
-  document.body.classList.toggle('dark'); 
-  localStorage.setItem(THEME_KEY, document.body.classList.contains('dark')?'dark':'light'); 
-});
+if (themeBtn) {
+  themeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    localStorage.setItem(THEME_KEY, document.body.classList.contains('dark') ? 'dark' : 'light');
+  });
+}
+}
 
 // RECENT SEARCHES
 function getRecent(){ try { return JSON.parse(localStorage.getItem(RECENT_KEY)||'[]'); } catch(e){ return []; } }
@@ -131,6 +132,21 @@ async function fetchWeatherByCoords(lat,lon,displayName){
     hideLoader();
   }
 }
+function hideLoader() {
+  document.getElementById("loader").classList.add("hidden");
+}
+
+fetch(apiURL)
+  .then(res => res.json())
+  .then(data => {
+    renderWeather(data);
+    hideLoader();   // यहाँ loader हटेगा
+  })
+  .catch(err => {
+    console.error(err);
+    hideLoader();   // error पर भी हटे
+  });
+
 
 // RENDER current
 function setWeatherTheme(weatherMain) {
@@ -222,6 +238,11 @@ function renderCurrent(data, displayName) {
 }
 
 }
+window.addEventListener("load", () => {
+  const loader = document.getElementById("loader");
+  loader.classList.add("hidden");
+});
+
 
 // RENDER forecast
 function renderForecast(fdata){ if(!fdata||!fdata.list){ forecastEl.innerHTML='No forecast available'; return; } const today=new Date().toISOString().slice(0,10); const days={}; fdata.list.forEach(item=>{ const date=item.dt_txt.split(' ')[0]; if(!days[date]) days[date]=[]; days[date].push(item); }); const keys=Object.keys(days).sort(); const cards=[]; for(let k of keys){ const arr=days[k]; let pick=arr.find(it=>it.dt_txt.includes('12:00:00'))||arr[Math.floor(arr.length/2)]; if(!pick) continue; const min=Math.round(Math.min(...arr.map(x=>x.main.temp_min))); const max=Math.round(Math.max(...arr.map(x=>x.main.temp_max))); cards.push({date:k,tempMin:min,tempMax:max,icon:pick.weather&&pick.weather[0]&&pick.weather[0].icon,desc:pick.weather&&pick.weather[0]&&pick.weather[0].description}); if(cards.length>=5) break; } forecastEl.innerHTML=''; cards.forEach(c=>{ const d=new Date(c.date); const dayName=d.toLocaleDateString(undefined,{weekday:'short'}); const el=document.createElement('div'); el.className='fcard'; el.innerHTML=`<div style="font-weight:700">${dayName}</div><div style="margin-top:6px"><img src="https://openweathermap.org/img/wn/${c.icon}@2x.png" style="width:60px;height:60px" alt="${c.desc}"/></div><div style="margin-top:6px;font-weight:700">${c.tempMax}° / ${c.tempMin}°</div><div style="opacity:0.85;margin-top:6px;text-transform:capitalize;font-size:13px">${c.desc||''}</div>`; forecastEl.appendChild(el); });}
@@ -231,3 +252,4 @@ function showMessage(txt,isError){ messageEl.textContent=txt||''; messageEl.styl
 
 // keyboard focus '/'
 document.addEventListener('keydown',(e)=>{ if(e.key==='/'){ e.preventDefault(); cityInput.focus(); }});
+
