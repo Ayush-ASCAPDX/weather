@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Weather App</title>
+<link rel="icon" href="data:,W">
+<link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="weather-effect"></div>
+    <div id="loader" class="loader">
+  <div class="spinner"></div>
+  <p>Loading Weather...</p>
+</div>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">A</div>
+        <div>
+          <div style="font-weight:800">Weather App</div>
+          <div style="font-size:12px;opacity:0.85">Powered By ASCAPDX </div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <!-- <div class="theme-toggle" title="Toggle light/dark">
+          <label style="font-size:13px;opacity:0.9">Theme</label> -->
+          <!-- <button id="themeBtn" class="small-btn">Toggle</button>
+        </div> -->
+        <nav><a href="#" id="homeLink">Home</a></nav>
+        <nav><a href="about.html" id="About">About</a></nav>
+        <nav><a href="contact.html" id="Contact">Contact</a></nav>
+      </div>
+    </header>
+    <section class="controls">
+      <div class="search-box">
+        <div style="position:relative;">
+          <div class="suggestions">
+            <input id="cityInput" type="search" placeholder="Type city name — e.g. Mumbai, London, Tokyo" autocomplete="off" />
+            <div id="suggestions" class="suggest-list" style="display:none;"></div>
+          </div>
+        </div>
+        <button id="searchBtn">Search</button>
+        <button id="locBtn" class="small-btn">Use My Location</button>
+        <button id="clearRecent" class="small-btn">Clear Recent</button>
+      </div>
+      <!-- <div style="margin-left:auto;color:var(--muted);font-size:13px">Pro tip: Enter ≥3 letters for suggestions</div> -->
+    </section>
+    <div class="main-grid">
+      <!-- Left: Current + Forecast -->
+      <div>
+        <div class="card">
+          <div class="current" id="currentWrap">
+            <div class="left">
+              <div class="city" id="cityName">—</div>
+              <div class="desc" id="desc">Search a city to see weather</div>
+              <div class="temp" id="temp">--°C</div>
+              <div class="meta">
+                <div id="humidity">Humidity: —</div>
+                <div id="wind">Wind: —</div>
+                <div id="feels">Feels: —</div>
+              </div>
+              <div class="msg" id="lastUpdated"></div>
+            </div>
+            <div class="icon" id="iconWrap">
+              <img id="iconImg" src="" alt="" style="width:96px;height:96px"/>
+            </div>
+          </div>
+          <div style="margin-top:12px">
+            <h4 style="margin:6px 0 10px 0">5-Day Forecast</h4>
+            <div id="forecast" class="forecast"></div>
+          </div>
+        </div>
+        <div class="msg" id="message" style="margin-top:12px"></div>
+      </div>
+      <!-- Right: Sidebar recent searches etc -->
+      <aside class="sidebar">
+        <div class="card">
+          <h3>Recent Searches</h3>
+          <div id="recentList" class="recent-list"></div>
+          <div style="margin-top:10px;display:flex;justify-content:space-between;align-items:center">
+            <div style="font-size:13px;opacity:0.9">Saved locally</div>
+            <button id="removeAll" class="clear-btn">Remove All</button>
+          </div>
+        </div>
+        <div style="height:12px"></div>
+        <!-- <div class="card">
+          <h3>Extras</h3>
+          <div style="font-size:13px;opacity:0.9;margin-top:6px">
+            • Use geolocation to fetch nearest weather.<br>
+            • Click recent city to re-open its weather.<br>
+            • Theme saved across sessions.
+          </div>
+        </div> -->
+      </aside>
+    </div>
+  </div>
+  
+  <script src="index.js"></script>
+</body>
+</html>
