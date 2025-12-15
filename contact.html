@@ -1,152 +1,171 @@
 <!DOCTYPE html>
 <html lang="hi">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact Us • Weather App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: url("https://images.unsplash.com/photo-1601297183305-6df142704ea2?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
-<style>
-body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:url("https://images.unsplash.com/photo-1601297183305-6df142704ea2?q=80&w=1074&auto=format&fit=crop");
-  background-size:cover;
-  background-position:center;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-}
+        .container {
+            perspective: 1000px;
+        }
 
-header{
-  position:absolute;
-  top:0;
-  width:100%;
-  display:flex;
-  justify-content:space-around;
-  align-items:center;
-  padding:14px 20px;
-  color:white;
-}
+        .card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 30px;
+            width: 350px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
 
-nav a{
-  color:white;
-  text-decoration:none;
-  margin-left:18px;
-  font-weight:600;
-  font-size:20px;
-  padding:8px 12px;
-  border-radius:8px;
-}
+        .card:hover {
+            transform: rotateX(5deg) rotateY(5deg);
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.3);
+        }
 
-nav a:hover{
-  background:rgba(255,255,255,.25);
-}
+        .card h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2563eb;
+        }
 
-.container{
-  perspective:1000px;
-}
+        .form-group {
+            margin-bottom: 15px;
+        }
 
-.card{
-  width:350px;
-  background:white;
-  padding:30px;
-  border-radius:18px;
-  box-shadow:0 15px 35px rgba(0,0,0,.25);
-  transition:.3s;
-}
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #333;
+        }
 
-.card:hover{
-  transform:rotateX(5deg) rotateY(5deg);
-}
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 14px;
+            outline: none;
+            transition: border 0.2s;
+        }
 
-h2{
-  text-align:center;
-  color:#2563eb;
-  margin-bottom:20px;
-}
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #2563eb;
+        }
 
-.form-group{
-  margin-bottom:15px;
-}
+        .form-group textarea {
+            resize: none;
+            height: 100px;
+        }
 
-label{
-  font-size:14px;
-  font-weight:600;
-}
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
 
-input,textarea{
-  width:100%;
-  padding:10px;
-  border-radius:10px;
-  border:1px solid #ccc;
-  outline:none;
-}
+        header {
+            position: absolute;
+            top: 0px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 14px 20px;
+            background: transparent;
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+            width: 97vw;
+        }
 
-input:focus,textarea:focus{
-  border-color:#2563eb;
-}
+        header h1 {
+            font-size: 22px;
+            margin: 0;
+        }
 
-textarea{
-  height:100px;
-  resize:none;
-}
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 18px;
+            font-weight: 600;
+            font-size: 22px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
 
-button{
-  width:100%;
-  padding:12px;
-  border:none;
-  border-radius:14px;
-  background:linear-gradient(135deg,#3b82f6,#06b6d4);
-  color:white;
-  font-size:16px;
-  font-weight:700;
-  cursor:pointer;
-}
-</style>
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        nav a.active {
+            background: #fff;
+            color: #2563eb;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+    </style>
 </head>
 
 <body>
+    <header>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+        </nav>
+        <h1>Weather App</h1>
+    </header>
+    <div class="container">
+        <div class="card">
+            <h2>Contact Us</h2>
+            <form action="https://formsubmit.co/zigar1499@gmail.com" method="POST">
 
-<header>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-  </nav>
-  <h1>Weather App</h1>
-</header>
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_next" value="https://ayush-ascapdx.github.io/weather/thankyou.html">
 
-<div class="container">
-  <div class="card">
-    <h2>Contact Us</h2>
 
-    <form action="https://formsubmit.co/zigar1499@gmail.com" method="POST">
-
-      <!-- REQUIRED FormSubmit fields -->
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_next" value="https://ayush-ascapdx.github.io/weather/thankyou.html">
-
-      <div class="form-group">
-        <label>Name</label>
-        <input type="text" name="name" required>
-      </div>
-
-      <div class="form-group">
-        <label>Email</label>
-        <input type="email" name="email" required>
-      </div>
-
-      <div class="form-group">
-        <label>Message</label>
-        <textarea name="message" required></textarea>
-      </div>
-
-      <button type="submit">Send Message</button>
-    </form>
-
-  </div>
-</div>
-
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" name="name" id="name" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" placeholder="send your message..." required></textarea>
+                </div>
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+    <script>
+    </script>
 </body>
+
 </html>
