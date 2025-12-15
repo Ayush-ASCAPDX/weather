@@ -1,185 +1,480 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About - Weather App</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      background: #f4f4f9;
-      color: #333;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About • Weather App</title>
 
-    /* Header (same as index) */
-   header {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 14px 20px;
-  background: #71b9e6;
-  color: #fff;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+<style>
+:root{
+  --bg:#ecfeff;
+  --glass:rgba(255,255,255,0.55);
+  --border:rgba(255,255,255,0.35);
+  --text:#0f172a;
+  --primary:#22d3ee;
+  --secondary:#1e3a8a;
 }
 
-header h1 {
-  font-size: 22px;
-  margin: 0;
+body.dark{
+  --bg:#020617;
+  --glass:rgba(15,23,42,0.75);
+  --border:rgba(255,255,255,0.1);
+  --text:#e5e7eb;
 }
 
-nav a {
-  color: #fff;
-  text-decoration: none;
-  margin-left: 18px;
-  font-weight: 600;
-  font-size: 22px;
-  padding: 8px 12px;
-  border-radius: 8px;
-  transition: all 0.3s ease;
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:system-ui,Segoe UI,sans-serif;
+  background:linear-gradient(135deg,var(--bg),#f0f9ff);
+  color:var(--text);
+  transition:.4s;
 }
 
-nav a:hover {
-  background: rgba(255, 255, 255, 0.25);
-  transform: translateY(-2px);
+/* HEADER */
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:16px 26px;
+  background:linear-gradient(135deg,var(--primary),var(--secondary));
+  color:white;
+  position:sticky;
+  top:0;
+  z-index:100;
 }
 
-nav a.active {
-  background: #fff;
-  color: #2563eb;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+header h1{
+  margin:0;
+  font-size:22px;
+}
+
+nav{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+nav a{
+  color:white;
+  text-decoration:none;
+  font-weight:600;
+}
+
+.toggle{
+  border:none;
+  background:white;
+  color:#1e3a8a;
+  padding:6px 10px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:700;
+}
+
+/* LAYOUT */
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:32px 20px;
+}
+
+/* GLASS SECTIONS */
+.section{
+  background:var(--glass);
+  backdrop-filter:blur(16px);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:34px;
+  margin-bottom:40px;
+  box-shadow:0 30px 60px rgba(0,0,0,.18);
+  opacity:0;
+  transform:translateY(30px) scale(.97);
+  transition:.8s cubic-bezier(.2,.8,.2,1);
+}
+
+.section.show{
+  opacity:1;
+  transform:none;
+}
+
+.section h2{
+  margin-top:0;
+  font-size:28px;
+  background:linear-gradient(90deg,var(--primary),var(--secondary));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* FEATURES */
+.features{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:22px;
+}
+
+.feature{
+  padding:22px;
+  border-radius:18px;
+  background:linear-gradient(180deg,rgba(255,255,255,.6),rgba(255,255,255,.25));
+  box-shadow:0 15px 30px rgba(0,0,0,.12);
+}
+/* FEATURE HOVER DETAILS */
+.feature{
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.feature:hover{
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 25px 45px rgba(0,0,0,.18);
+}
+
+.feature span{
+  display: block;
+  font-size: 14px;
+  opacity: 0;
+  margin-top: 10px;
+  transition: .3s ease;
+}
+
+.feature:hover span{
+  opacity: 1;
 }
 
 
-    .container {
-      max-width: 1000px;
-      margin: auto;
-      padding: 20px;
-    }
+/* TEAM */
+.team{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:24px;
+}
 
-    .about-section {
-      background: #fff;
-      padding: 30px;
-      margin-top: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    }
+.member{
+  text-align:center;
+  padding:24px;
+  border-radius:20px;
+  background:linear-gradient(180deg,var(--glass),rgba(255,255,255,.2));
+}
 
-    .about-section h2 {
-      color: #0f172a;
-      margin-bottom: 10px;
-    }
+.avatar{
+  width:82px;
+  height:82px;
+  border-radius:50%;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+  font-weight:800;
+  background:linear-gradient(135deg,var(--primary),var(--secondary));
+  color:white;
+}
 
-    .about-section p {
-      font-size: 1.1rem;
-      margin-bottom: 15px;
-    }
+/* FAQ */
+.faq details{
+  background:rgba(255,255,255,.35);
+  padding:16px 20px;
+  border-radius:14px;
+  margin-bottom:12px;
+  cursor:pointer;
+}
 
-    .team {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      margin-top: 20px;
-    }
+/* CONTACT */
+.contact input,.contact textarea{
+  width:100%;
+  padding:14px;
+  border-radius:12px;
+  border:none;
+  margin-bottom:14px;
+  outline:none;
+}
 
-    .team-member {
-      flex: 1 1 calc(33% - 20px);
-      background: #fafafa;
-      padding: 20px;
-      border-radius: 10px;
-      text-align: center;
-      box-shadow: 0 3px 5px rgba(0,0,0,0.1);
-    }
+.contact button{
+  padding:12px 20px;
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(135deg,var(--primary),var(--secondary));
+  color:white;
+  font-weight:700;
+  cursor:pointer;
+}
 
-    .team-member img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 15px;
-    }
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:18px;
+  opacity:.7;
+  font-size:14px;
+}
 
-    .team-member h3 {
-      margin: 10px 0 5px;
-      color: #0f172a;
-    }
+/* MOBILE */
+@media(max-width:600px){
+  .section{padding:26px}
+}
+/* OTHER PROJECTS SECTION */
+.projects-cta{
+  text-align:center;
+}
 
-    footer {
-      text-align: center;
-      background: #0f172a;
-      color: white;
-      padding: 15px;
-      margin-top: 30px;
-    }
+.projects-card{
+  display:inline-block;
+  padding:40px 34px;
+  border-radius:22px;
+  background:linear-gradient(135deg,rgba(255,255,255,.65),rgba(255,255,255,.25));
+  border:1px solid var(--border);
+  box-shadow:0 30px 60px rgba(0,0,0,.18);
+  transition:.4s cubic-bezier(.2,.8,.2,1);
+  cursor:pointer;
+}
 
-    @media(max-width: 768px) {
-      .team-member {
-        flex: 1 1 100%;
-      }
-    }
-  </style>
+.projects-card:hover{
+  transform:translateY(-10px) scale(1.03);
+  box-shadow:0 40px 80px rgba(0,0,0,.25);
+}
+
+.projects-card h3{
+  margin:0 0 10px;
+  font-size:26px;
+  background:linear-gradient(90deg,var(--primary),var(--secondary));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.projects-card p{
+  font-size:16px;
+  opacity:.85;
+  margin-bottom:22px;
+}
+
+.projects-card a{
+  display:inline-block;
+  padding:12px 22px;
+  border-radius:14px;
+  text-decoration:none;
+  font-weight:700;
+  color:white;
+  background:linear-gradient(135deg,var(--primary),var(--secondary));
+}
+/* PROJECTS CTA ENHANCED */
+.projects-card{
+  position:relative;
+  cursor:pointer;
+  overflow:hidden;
+}
+
+/* glow effect */
+.projects-card::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background:linear-gradient(135deg,var(--primary),var(--secondary));
+  opacity:0;
+  filter:blur(20px);
+  transition:.4s;
+  z-index:-1;
+}
+
+.projects-card:hover::before{
+  opacity:.8;
+  color: white;
+}
+
+/* project count badge */
+.project-count{
+  display:inline-block;
+  margin-bottom:10px;
+  font-weight:700;
+  color:var(--secondary);
+}
+
+/* LOADER OVERLAY */
+.loader-overlay{
+  position:fixed;
+  inset:0;
+  background:linear-gradient(135deg,var(--primary),var(--secondary));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  font-size:22px;
+  font-weight:700;
+  z-index:9999;
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+}
+
+.loader-overlay.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.loader{
+  width:50px;
+  height:50px;
+  border:5px solid rgba(255,255,255,.3);
+  border-top-color:white;
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+  margin-bottom:14px;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+</style>
 </head>
+
 <body>
 
-  <!-- Header -->
-  <header>
-      <nav>
-          <a href="index.html">Home</a>
-          <a href="about.html">About</a>
-        </nav>
-        <h1>Weather App</h1>
-  </header>
+<header>
+  <h1>🌦 Weather App</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <button class="toggle" onclick="toggleDark()">🌙</button>
+  </nav>
+</header>
 
-  <div class="container">
-    <!-- About -->
-    <section class="about-section">
-        <h2>About Weather App</h2>
-        <p>
-          Our Weather App gives you real-time weather updates with beautiful themes.  
-          It changes background images based on weather (sunny, cloudy, rainy, snow, etc.)  
-          so you always feel the live atmosphere while checking the forecast.
-        </p>
-        
-        <h2>Who We Are</h2>
-        <p>
-          We are a passionate team of developers and designers who love creating smart, user-friendly, and visually attractive apps.  
-          Our goal is to make checking the weather both useful and fun.
-        </p>
-        
-        <h2>Our Mission</h2>
-        <p>
-          To provide accurate, simple, and beautiful weather insights that help people plan their day better.  
-          We believe weather apps should not only inform but also inspire.
-        </p>
-    </section>
+<div class="container">
+<div class="loader-overlay" id="loader">
+  <div style="text-align:center">
+    <div class="loader"></div>
+    Loading projects...
+  </div>
+</div>
 
-    <!-- Team -->
-    <section class="about-section">
-      <h2>Meet the Team</h2>
-      <div class="team">
-        <div class="team-member">
-          <img src="https://via.placeholder.com/120" alt="Team Member 1">
-          <h3>Ayush</h3>
-          <p>Founder & Designer</p>
-        </div>
-        <div class="team-member">
-          <img src="https://via.placeholder.com/120" alt="Team Member 2">
-          <h3>Prince</h3>
-          <p>Lead Developer</p>
-        </div>
-        <div class="team-member">
-          <img src="https://via.placeholder.com/120" alt="Team Member 3">
-          <h3>Rohan</h3>
-          <p>Backend Specialist</p>
-        </div>
-      </div>
-    </section>
+  <!-- ABOUT -->
+  <section class="section">
+    <h2>About Weather App</h2>
+    <p>
+      Weather App delivers real-time, accurate weather updates with immersive visuals.
+      Built for everyday users who want clarity, beauty, and speed in one place.
+    </p>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section">
+    <h2>Key Features</h2>
+    <div class="features">
+
+  <div class="feature">
+    🌍 Live Weather Updates
+    <span>Get real-time temperature, humidity, and conditions instantly.</span>
   </div>
 
-  <footer>
-    <p>&copy; 2025 Weather App. All Rights Reserved.</p>
-  </footer>
+  <div class="feature">
+    🎨 Dynamic Themes
+    <span>Backgrounds change automatically based on current weather.</span>
+  </div>
+
+  <div class="feature">
+    ⚡ Fast & Lightweight
+    <span>Optimized for speed with minimal data usage.</span>
+  </div>
+
+  <div class="feature">
+    📱 Mobile-First Design
+    <span>Looks perfect on phones, tablets, and desktops.</span>
+  </div>
+
+</div>
+
+  </section>
+
+  <!-- TEAM -->
+  <section class="section">
+    <h2>Meet the Team</h2>
+    <div class="team">
+      <div class="member">
+        <div class="avatar">A</div>
+        <h3>Ayush</h3>
+        <p>Founder & Designer</p>
+      </div>
+      <div class="member">
+        <div class="avatar">P</div>
+        <h3>Prince</h3>
+        <p>Frontend Developer</p>
+      </div>
+      <div class="member">
+        <div class="avatar">R</div>
+        <h3>Rohan</h3>
+        <p>Backend Specialist</p>
+      </div>
+    </div>
+  </section>
+<!-- OTHER PROJECTS -->
+<!-- OTHER PROJECTS -->
+<section class="section projects-cta">
+  <div class="projects-card" onclick="goToProjects()">
+    <div class="project-count">🚀 12+ Projects</div>
+    <h3>See My Other Projects</h3>
+    <p>
+      Explore modern web apps, UI experiments, and real-world projects
+      built with performance and clean design in mind.
+    </p>
+    <strong>Click to explore →</strong>
+  </div>
+</section>
+
+  <!-- FAQ -->
+  <section class="section faq">
+    <h2>FAQ</h2>
+    <details>
+      <summary>Is the weather data accurate?</summary>
+      <p>Yes, we use trusted real-time weather APIs.</p>
+    </details>
+    <details>
+      <summary>Is the app free?</summary>
+      <p>Yes, Weather App is completely free to use.</p>
+    </details>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section contact">
+    <h2>Contact Us</h2>
+    <input type="text" placeholder="Your Name">
+    <input type="email" placeholder="Your Email">
+    <textarea rows="4" placeholder="Your Message"></textarea>
+    <button>Send Message</button>
+  </section>
+
+</div>
+
+<footer>
+  © 2025 Weather App • Premium UI
+</footer>
+
+<script>
+function toggleDark(){
+  document.body.classList.toggle("dark");
+}
+
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add("show");
+    }
+  });
+},{threshold:.15});
+
+document.querySelectorAll(".section").forEach(s=>observer.observe(s));
+</script>
+<script>
+function goToProjects(){
+  const loader=document.getElementById("loader");
+  loader.classList.add("show");
+
+  setTimeout(()=>{
+    window.location.href="https://ayush-ascapdx.github.io/ASCAPDX.1/"; 
+    // OR your GitHub / portfolio link
+  },3000);
+}
+</script>
 
 </body>
 </html>
