@@ -253,3 +253,4 @@ function showMessage(txt,isError){ messageEl.textContent=txt||''; messageEl.styl
 // keyboard focus '/'
 document.addEventListener('keydown',(e)=>{ if(e.key==='/'){ e.preventDefault(); cityInput.focus(); }});
 
+
